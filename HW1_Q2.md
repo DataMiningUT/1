@@ -36,7 +36,7 @@ In this question, we explore the best time to fly to and depart from Austin-Berg
 
 </br>
 
-![](HW1_Q2_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](image/unnamed-chunk-4-1.png)
 
 
 
@@ -47,7 +47,7 @@ In this question, we explore the best time to fly to and depart from Austin-Berg
 
 </br>
 
-![](HW1_Q2_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](image/unnamed-chunk-5-1.png)
 
 
 </br>
@@ -55,7 +55,7 @@ In this question, we explore the best time to fly to and depart from Austin-Berg
 
 </br>
 
-![](HW1_Q2_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](image/unnamed-chunk-6-1.png)
 
 
 </br>
@@ -95,7 +95,7 @@ summary(ABIA$time)
 
 </br>
 
-![](HW1_Q2_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](image/unnamed-chunk-10-1.png)
 
 
 </br>
