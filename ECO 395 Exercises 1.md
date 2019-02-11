@@ -1,5 +1,8 @@
-HW1 Q1
+Q1 
 ================
+**Data visualization 1: green buildings**
+----------------
+
 
 In fact, there are some covariates that the staff didn't take seriously when he gave the suggestion to the "green building plan". The method that just use the median od two parts to calculate the revenue is kind of ridiculous.
 
@@ -41,7 +44,7 @@ In conculsion, the location,the amenities around, the property of the contract??
 
 
 
-HW1 Q2
+Q2
 ================
 
 Data visualization 2: flights at ABIA
@@ -152,7 +155,7 @@ Overall, the best way to minimize delay in Austin-Bergstrom Interational Airport
 </br> </br>
 
 
-Homework1\_Q3
+Q3
 ================
 
 Regression vs KNN
