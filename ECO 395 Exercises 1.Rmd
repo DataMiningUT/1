@@ -132,10 +132,6 @@ In conculsion, the location,the amenities around, the property of the contract??
 
 
 
----
-title: "HW1 Q2"
-output: github_document
----
 
 
 ```{r setup, include=FALSE}
@@ -365,10 +361,7 @@ Overall, the best way to minimize delay in Austin-Bergstrom Interational Airport
 </br>
 
 
----
-title: "Homework1_Q3"
-output: pdf_document
----
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
