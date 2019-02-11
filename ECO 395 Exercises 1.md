@@ -45,7 +45,7 @@ In conculsion, the location,the amenities around, the property of the contract??
 
 
 
-================
+
 
 Q2  Data visualization 2: flights at ABIA
 -------------------------------------
@@ -156,7 +156,6 @@ Overall, the best way to minimize delay in Austin-Bergstrom Interational Airport
 
 
 
-================
 
 Q3  Regression vs KNN
 -----------------
