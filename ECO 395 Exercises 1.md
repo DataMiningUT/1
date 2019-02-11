@@ -1,6 +1,6 @@
-Q1 
+Exercise 1
 ================
-**Data visualization 1: green buildings**
+Q1  Data visualization 1: green buildings
 ----------------
 
 
@@ -44,10 +44,10 @@ In conculsion, the location,the amenities around, the property of the contract??
 
 
 
-Q2
+
 ================
 
-Data visualization 2: flights at ABIA
+Q2  Data visualization 2: flights at ABIA
 -------------------------------------
 
 In this question, we explore the best time to fly to and depart from Austin-Bergstrom Interational Airport in order to minimize delay.
@@ -155,10 +155,10 @@ Overall, the best way to minimize delay in Austin-Bergstrom Interational Airport
 </br> </br>
 
 
-Q3
+
 ================
 
-Regression vs KNN
+Q3  Regression vs KNN
 -----------------
 
 Extract two trims(350 and 65 AMG) from all trim levels.
