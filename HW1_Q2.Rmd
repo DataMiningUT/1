@@ -1,4 +1,138 @@
 ---
+title: "HW1"
+output:
+  github_document
+---
+```{r setup, include=FALSE}
+rm(list = ls())
+library(rmarkdown)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r,include=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+setwd("~/Desktop/")
+greenbuildings <- read.csv("greenbuildings.csv")
+```
+```{r,include=FALSE}
+summary(greenbuildings)
+```
+
+In fact, there are some covariates that the staff didn't take seriously when he gave the suggestion to the "green building plan". The method that just use the median od two parts to calculate the revenue is kind of ridiculous.
+
+We process the data and give some visualization plots as the evidence to support our ideas.
+
+Firstly, we use the density graph to show the distribution of Rent for green buildings and 
+Non-green buildings, from this graph, we can see that the rent distribution of green buildings is a little higher than the non greens.
+
+```{r}
+g <- ggplot(greenbuildings, aes(greenbuildings$Rent))
+g + geom_density(aes(fill=factor(greenbuildings$green_rating)), alpha=0.8) + 
+  labs(title="Density plot", 
+       subtitle="Rent Grouped by green_rating",
+       caption="Source: clean_data",
+       x="Rent",
+       fill="green_rating")
+```
+
+Secondly, we can not agree with the method that dropping the buildings whose leasing rate is lower than 10% in the data set. Since there may be some other causes that make the buildings have such a low occupancy rate, it is not serious to drop the data directly. In addition, from visualization graph, we can not see the obvious correlation between rent and leasing rate.
+
+```{r}
+ggplot(data=greenbuildings)+
+  geom_point(mapping=aes(x=greenbuildings$leasing_rate,y=greenbuildings$Rent))+
+  facet_wrap(~green_rating)+
+  labs(subtitle="Grouped by green_rating", 
+       y="Rent", 
+       x="leasing rate", 
+       title="Scatterplot Rent Vs leasing rate", 
+       caption = "greenbuildings")
+```
+
+Thirdly, we want to find whether there are other covariates to influence the difference of the rent between green buildings and non-green buildings.
+
+In order to show the evidence clearly, we process the data into green part and non-green part.
+
+
+
+
+```{r}
+non_green=newdata <- subset(greenbuildings,greenbuildings$LEED <1 & greenbuildings$Energystar <1 )
+green_data=newdata <- subset(greenbuildings,greenbuildings$LEED >0 | greenbuildings$Energystar >0 )
+```
+
+
+
+
+We check the effect of net, size, amenities and class on rent difference in this part.
+
+
+```{r}
+g + geom_density(aes(fill=factor(greenbuildings$green_rating)), alpha=0.8) + 
+  labs(title="Density plot", 
+       subtitle="Rent Grouped by net",
+       caption="Source: clean_data",
+       x="Rent",
+       fill="green_rating")+
+  facet_wrap(~net,nrow=2)
+```
+
+
+The graph shows that rent difference is larger for the buildings have net contract than the buildings without net contract.
+
+
+```{r}
+g + geom_density(aes(fill=factor(greenbuildings$green_rating)), alpha=0.8) + 
+  labs(title="Density plot", 
+       subtitle="Rent Grouped by amenities",
+       caption="Source: clean_data",
+       x="Rent",
+       fill="green_rating")+
+  facet_wrap(~amenities,nrow=2)
+```
+The graph shows that rent difference is larger for the buildings with amenities than the buildings without amenities.
+
+```{r}
+greenbuildings$class<-(1/2*(greenbuildings$class_a)+greenbuildings$class_b)
+g <- ggplot(greenbuildings, aes(greenbuildings$Rent))
+g + geom_density(aes(fill=factor(greenbuildings$green_rating)), alpha=0.8) + 
+  labs(title="Density plot", 
+       subtitle="Rent Grouped by class",
+       caption="Source: clean_data",
+       x="Rent",
+       fill="green rating")+
+  facet_wrap(~class,nrow=3)
+```
+
+class 0 represent class c, class 0.5 represent class a, and class 1 represent class b,
+the rent difference is larger in class a than in class b and c.
+
+At last, we want to check whether we can reach at the 80% occupancy rate in first 8 years.
+
+```{r}
+green_mean<-aggregate(green_data$leasing_rate,list(green_data$age),mean)
+
+ggplot(data=green_mean, aes(x=green_mean$Group.1, y=green_mean$x)) +
+  geom_line()+
+  geom_point()+
+  labs(title="line chart", 
+       subtitle="occupancy rate vs. age",
+       caption="Source: green_data",
+       x="age",
+       y="occupancy rate")
+```
+
+For the green buildings, we can find that we can not use the 80% occupancy rate from first year, 
+we need to consider that our cost back process will be longer since the occupancy rate need some 
+time to acheive at 80% and higher.
+
+
+In conculsion, the location,the amenities around, the property of the contract???the class of the building will influence the rent of the building, this will impact the revenue we can get from the building. In addition, the leasing rate will affect the time we return the cost, the occupancy rate can not reach high at a eraly age. We think that it is possible to use his logic to make the decision, but we need to consider much more covariates to make the accurate decision.
+
+
+
+---
 title: "HW1 Q2"
 output: github_document
 ---
