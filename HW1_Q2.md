@@ -11,8 +11,6 @@ Firstly, we use the density graph to show the distribution of Rent for green bui
 
 Secondly, we can not agree with the method that dropping the buildings whose leasing rate is lower than 10% in the data set. Since there may be some other causes that make the buildings have such a low occupancy rate, it is not serious to drop the data directly. In addition, from visualization graph, we can not see the obvious correlation between rent and leasing rate.
 
-    ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-
 ![](HW1_Q1_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 Thirdly, we want to find whether there are other covariates to influence the difference of the rent between green buildings and non-green buildings.
