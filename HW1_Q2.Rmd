@@ -1,0 +1,234 @@
+---
+title: "HW1 Q2"
+output: github_document
+---
+
+
+```{r setup, include=FALSE}
+rm(list=ls())
+library(rmarkdown)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, include=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+setwd("~/Desktop/statistical learning/code/data")
+ABIA <- read.csv("ABIA.csv")
+```
+
+
+
+## Data visualization 2: flights at ABIA
+
+In this question, we explore the best time to fly to and depart from Austin-Bergstrom Interational Airport in order to minimize delay.
+
+&NewLine;
+
+</br>
+
+#####data-preprocessing
+
+ - new variable 'type': label the flight type as 'Departure' from or 'Arrival' at Austin.
+ - new variable 'delaytime': use the departure delay 'DepDelay' as the delay time for departure flights, and arrival delay 'ArrDelay' for arrivals.
+ - modify 'delaytime': normalize the delay time to 0 for early departures and arrivals (delay time being negative), assuming that people only care about delays.
+  
+&NewLine;
+
+
+</br>
+
+###Seasonality of delays - best time of the year to travel from & to Austin?
+
+&NewLine;
+
+</br>
+
+#####data-processing for seasonality
+
+ - new variable 'date': format the month and date into one variable.
+ - calculate the average delay time of departure & arrival flights seperately, across all dates of the year.
+
+
+```{r, include=FALSE}
+#create variable: delaytype = departure / arrival, and their corresponding delay time
+ABIA$delaytime <- ifelse(ABIA$Origin == "AUS", ABIA$DepDelay, ABIA$ArrDelay)
+ABIA$delaytype <- ifelse(ABIA$Origin == "AUS", "Departure", "Arrival")
+
+#normalize delay time to be 0 or positive
+ABIA$delaytime <- ifelse(ABIA$delaytime < 0, 0, ABIA$delaytime)
+
+# create variable: date (yy-mm-dd)
+ABIA$date <- with(ABIA, ISOdate(year = 2008, Month, DayofMonth))
+```
+
+#####plotting
+
+ - plot the average delay time for two types of flights across all dates.
+ - add the trend line for departure and arrival flights (method: lasso)
+
+  
+```{r}
+season <- ABIA %>%
+  select (date, delaytime, delaytype) %>%
+  group_by (delaytype, date) %>%
+  summarise(avg_delay = mean(delaytime, na.rm= TRUE)) %>%
+  ungroup() %>%
+  arrange(-avg_delay)
+```
+
+&NewLine;
+
+</br>
+
+```{r, warning=FALSE, message=FALSE}
+g0 <- ggplot(data=season, aes(date, avg_delay))+
+  labs(
+    x = "Date",
+    y = "Average Delay (min)",
+    title = "Seasonality of delay time",
+    caption = "Data: commercial flights in 2008 departed from or landed at Austin-Bergstrom Interational Airport"
+  )
+ 
+g1 <- g0 +
+  geom_point(aes(color=delaytype)) +
+  ylim(0,50)
+
+g1 + 
+  geom_smooth(mapping = aes(color = delaytype))+
+  #geom_smooth(color="blue", linetype="dashed", se=FALSE)+
+  labs(
+    colour = "Type",
+    subtitle = "    Arrival is expected to have longer delay time than departure across all months"
+  )
+```
+
+&NewLine;
+&NewLine;
+
+
+</br>
+</br>
+
+ - plot the trend line for all flights from and to Austin and zoom in to see the details.
+  
+&NewLine;
+
+
+</br>
+
+```{r, warning=FALSE, message=FALSE}
+g1 + geom_smooth(color="blue")+
+  labs(
+    colour = "Type",
+    subtitle = "    average delay time of departures and arrivals across all months"
+  )
+```
+
+&NewLine;
+
+</br>
+
+  
+&NewLine;
+
+</br>
+
+```{r, warning=FALSE, message=FALSE}
+g0 + 
+  xlab("Date") + ylab("Average Delay (min)") + geom_smooth(color = "Blue") +
+  labs(subtitle = "    Fall is the best season of the year to minimize delays; peak in delays during December")
+
+```
+
+&NewLine;
+
+</br>
+
+We see that throughout the year, arrival flights at Austin are expected have longer delays than departure flights from Austin. Overall, fall (from September to November) is the best season of the year to minimize delays whereas December is the worst month of the year.
+
+
+&NewLine;
+
+</br>
+
+###Delays in a day - best hour of the day to travel from & to Austin?
+
+&NewLine;
+
+</br>
+
+##### data-processing for delays in a day
+
+ - new variable 'time': use the scheduled departure time 'CRSDepTime' as the time for departure flights, and scheduled arrival time 'CRSArrTime' for arrivals.
+
+```{r}
+ABIA$time <- ifelse(ABIA$Origin == "AUS", ABIA$CRSDepTime, ABIA$CRSArrTime)
+ABIA$hour=floor(ABIA$time/100)+round((ABIA$time/100-floor(ABIA$time/100))/60*100)
+ABIA$hour <- ifelse(ABIA$hour == 24, 0, ABIA$hour)
+```
+ - new variable 'hour': round the time to the nearest hour.
+ - calculate the average delay time of departure & arrival flights seperately, across all hours of the day.
+```{r, include=TRUE, echo=TRUE}
+summary(ABIA$time)
+```
+  
+  
+```{r}
+hour <- ABIA %>%
+  select (hour, delaytime, delaytype) %>%
+  filter (delaytime >= 0) %>%
+  group_by (delaytype, hour) %>%
+  summarise(avg_delay = mean(delaytime, na.rm= TRUE)) %>%
+  ungroup() %>%
+  arrange(-avg_delay)%>%
+  na.omit()
+```
+
+&NewLine;
+
+</br>
+
+#####plotting
+
+  - plot the average delay time for two types of flights across all hours.
+  - add the trend line for flights departed from and arrived at Austin (method: lasso).
+  
+&NewLine;
+
+</br>
+
+```{r, message=FALSE}
+ggplot(data=hour, aes(hour, avg_delay)) +
+  geom_point(aes(color=delaytype))+ geom_smooth() + 
+  xlim(0,24) +
+  labs(
+    x = "Hour of the day",
+    y = "Average Delay (min)",
+    color = "Type",
+    title = "Hourly delay time",
+    subtitle = "    Morning (5 am - 10 am) might be the best time of the day to minimize delays",
+    caption = "Data: commercial flights in 2008 departed from or landed at Austin-Bergstrom Interational Airport"
+  )
+
+```
+
+&NewLine;
+
+</br>
+
+We see that average delay time increases from 9:00 to 24:00, and reaches peak at midnight. Morning (5 am - 10 am) might be the best time of the day to minimize delays.
+
+
+Overall, the best way to minimize delay in Austin-Bergstrom Interational Airport is to depart from Austin in the morning of October!
+
+&NewLine;
+&NewLine;
+
+
+</br>
+</br>
+
+
+
