@@ -46,11 +46,11 @@ for (i in 3:230) {
 
 Make plot of RMSE versus K for trim 350
 
-![](Exercise-1/image/unnamed-chunk-8-1.png)
+![](image/unnamed-chunk-8-1.png)
 
 Make plot of RMSE versus K for trim 65AMG
 
-![](Exercise-1/image/unnamed-chunk-9-1.png)
+![](image/unnamed-chunk-9-1.png)
 
 For the optimal value of K, the plot of fitted model for trim 350 The optimal value of K is below:
 
@@ -62,7 +62,7 @@ The corresponding RMSE is below:
 
 The plot of fitted model for trim 350
 
-![](Exercise-1/image/unnamed-chunk-13-2.png)
+![](image/unnamed-chunk-13-2.png)
 
 For the optimal value of K, the plot of fitted model for trim 65AMG The optimal value of K is below:
 
@@ -74,7 +74,7 @@ The corresponding RMSE is below:
 
 The plot of fitted model for trim 65AMG
 
-![](Exercise-1/image/unnamed-chunk-16-2.png)
+![](image/unnamed-chunk-16-2.png)
 
 Which trim yields a larger optimal value of K? Why do you think this is?
 ------------------------------------------------------------------------
