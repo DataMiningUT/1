@@ -43,7 +43,7 @@ In conculsion, the location,the amenities around, the property of the contract??
 
 
 
-
+</br> </br> </br>
 
 
 
