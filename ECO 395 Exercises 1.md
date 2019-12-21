@@ -4,7 +4,7 @@ Exercise 1
 Flights at ABIA
 -------------------------------------
 
-In this question, we explore the best time to fly to and depart from Austin-Bergstrom Interational Airport in order to minimize delay.
+In this question, we explore the best time to arrive to and depart from Austin-Bergstrom Interational Airport in order to minimize delay.
 
 
 </br>
@@ -100,9 +100,9 @@ summary(ABIA$time)
 
 </br>
 
-We see that average delay time increases from 9:00 to 24:00, and reaches peak at midnight. Morning (5 am - 10 am) might be the best time of the day to minimize delays.
+We see that the average delay time increases from 9:00 to 24:00, and reaches peak at midnight. Morning (5 am - 10 am) might be the best time of the day to minimize delays.
 
-Overall, the best way to minimize delay in Austin-Bergstrom Interational Airport is to depart from Austin in the morning of October!
+Overall, the best way to minimize delays in the Austin-Bergstrom Interational Airport is to depart from Austin in the morning during October!
 
 
 
@@ -189,4 +189,4 @@ The plot of fitted model for trim 65AMG
 Which trim yields a larger optimal value of K? Why do you think this is?
 ------------------------------------------------------------------------
 
-Trim 350 yeilds larger optimal value of K. Because the sample size for trim 350 is larger than trim 65AMG. Then I guess the larger the sample size is, the larger the optimal K will be.
+Trim 350 yeilds a larger optimal value of K. Because the sample size for trim 350 is larger than trim 65AMG. It appears that the larger the sample size is, the larger the optimal K will be.
